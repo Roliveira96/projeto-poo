@@ -1,0 +1,140 @@
+/* ===== Demo Observer: Pet Virtual ===== */
+.ob-topo {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 20px;
+  align-items: center;
+  padding: 18px;
+  border-radius: 18px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+}
+
+.ob-pet { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.ob-rosto { font-size: 76px; line-height: 1; animation: respirar 2.6s infinite ease-in-out; }
+
+@keyframes respirar {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.04); }
+}
+
+.ob-nome { font-weight: 800; font-size: 18px; }
+
+.ob-balao {
+  font-size: 12px;
+  text-align: center;
+  color: var(--texto-suave);
+  background: var(--superficie-2);
+  border-radius: 10px;
+  padding: 4px 10px;
+}
+
+.ob-acoes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.botao-acao {
+  padding: 11px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--borda);
+  background: var(--superficie-2);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s;
+}
+
+.botao-acao:hover { border-color: var(--destaque); transform: translateY(-1px); }
+.ob-relogio { grid-column: 1 / -1; margin-top: 4px; }
+.ob-contador { grid-column: 1 / -1; font-size: 13px; color: var(--texto-suave); }
+.ob-contador b { color: var(--destaque); }
+
+.ob-cartoes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.ob-cartao {
+  position: relative;
+  min-height: 132px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  transition: opacity 0.3s, filter 0.3s;
+}
+
+.ob-cartao header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+.ob-cartao header div { display: flex; flex-direction: column; }
+.ob-cartao header small { font-family: var(--fonte-codigo); font-size: 11px; color: var(--texto-suave); }
+
+.ob-cartao.notificado { animation: notificado 0.9s ease; }
+
+@keyframes notificado {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--destaque) 80%, transparent); border-color: var(--destaque); }
+  100% { box-shadow: 0 0 0 12px transparent; border-color: var(--borda); }
+}
+
+.ob-fora {
+  display: none;
+  position: absolute;
+  inset: 64px 10px 10px;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(11, 14, 20, 0.92);
+  color: var(--texto-suave);
+  font-size: 13px;
+  text-align: center;
+}
+
+.ob-cartao.desinscrito { filter: grayscale(1); }
+.ob-cartao.desinscrito .ob-fora { display: grid; }
+
+/* ----- Conteúdo que cada observador desenha ----- */
+.barra { display: grid; grid-template-columns: 96px 1fr 28px; gap: 8px; align-items: center; font-size: 12px; margin-bottom: 6px; }
+.barra b { text-align: right; }
+.barra-trilho { height: 8px; border-radius: 999px; background: #262e40; overflow: hidden; }
+.barra-valor { height: 100%; border-radius: 999px; transition: width 0.5s ease; }
+.barra-valor.fome { background: #ff6b6b; }
+.barra-valor.felicidade { background: #ffd166; }
+.barra-valor.energia { background: #3ddc97; }
+
+.ob-alerta { font-size: 13px; padding: 8px 10px; border-radius: 10px; background: rgba(61, 220, 151, 0.1); }
+.ob-alerta.perigo { background: rgba(255, 107, 107, 0.14); color: #ffb3b3; }
+
+.ob-diario { list-style: none; margin: 0; padding: 0; font-size: 12px; color: #c3cad6; max-height: 92px; overflow: hidden; }
+.ob-diario li { padding: 2px 0; border-bottom: 1px dashed #262e40; }
+.ob-diario li:first-child { color: var(--texto); font-weight: 600; }
+
+.ob-celular { font-size: 13px; padding: 10px 12px; border-radius: 12px; background: #1f2636; border: 1px solid #323b52; }
+.ob-celular small { display: block; margin-top: 6px; color: var(--texto-suave); font-size: 11px; }
+
+/* ----- Diagrama SVG ----- */
+.ob-diagrama { width: 100%; max-width: 520px; max-height: 100%; height: auto; font-family: var(--fonte-codigo); }
+.ob-diagrama text { fill: var(--texto); font-size: 11px; text-anchor: middle; }
+.ob-diagrama .no-sub { fill: var(--texto-suave); font-size: 9.5px; }
+.ob-diagrama rect { fill: var(--superficie-2); stroke: var(--borda); stroke-width: 1.5; transition: stroke 0.3s, opacity 0.3s; }
+.ob-diagrama .no-pet rect { stroke: var(--destaque); stroke-width: 2; }
+
+.ob-diagrama .fio {
+  stroke: color-mix(in srgb, var(--destaque) 55%, #262e40);
+  stroke-width: 2;
+  transition: stroke 0.3s, opacity 0.3s;
+}
+
+.ob-diagrama .fio.desligado { stroke: #3a4256; stroke-dasharray: 5 6; opacity: 0.6; }
+.ob-diagrama .no-obs.desligado { opacity: 0.35; }
+
+.ob-diagrama .fio.enviando {
+  stroke: #ffd479;
+  stroke-width: 3;
+  stroke-dasharray: 10 8;
+  animation: fio-envia 0.9s linear;
+}
+
+@keyframes fio-envia {
+  from { stroke-dashoffset: 72; }
+  to { stroke-dashoffset: 0; }
+}
+
+.ob-diagrama .pulso rect { animation: no-pulsa 0.9s ease; }
+
+@keyframes no-pulsa {
+  0%, 100% { stroke: var(--borda); }
+  30% { stroke: #ffd479; stroke-width: 3; }
+}

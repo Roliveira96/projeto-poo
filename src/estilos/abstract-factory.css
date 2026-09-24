@@ -1,0 +1,161 @@
+/* ===== Demo Abstract Factory: Fábrica de Robôs ===== */
+.linha-fogo { --cor-linha: #ef5b3a; }
+.linha-gelo { --cor-linha: #4cc9f0; }
+.linha-cyber { --cor-linha: #b388ff; }
+
+.af-linhas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+.botao-linha {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 8px;
+  font-size: 28px;
+  background: var(--superficie);
+  border: 2px solid var(--borda);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s, background 0.2s;
+}
+
+.botao-linha b { font-size: 14px; }
+.botao-linha:hover { transform: translateY(-2px); border-color: var(--cor-linha); }
+
+.botao-linha.selecionado {
+  border-color: var(--cor-linha);
+  background: color-mix(in srgb, var(--cor-linha) 16%, var(--superficie));
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--cor-linha) 18%, transparent);
+}
+
+.af-botoes { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.af-palco {
+  margin-top: 16px;
+  padding: 24px 16px;
+  border-radius: 18px;
+  background:
+    linear-gradient(transparent 95%, rgba(255, 255, 255, 0.04) 95%) 0 0 / 100% 24px,
+    var(--superficie);
+  border: 1px solid var(--borda);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+/* ----- O robô: cada peça fica "fantasma" até ser criada pela fábrica ----- */
+.robo { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.robo-meio { display: flex; gap: 6px; align-items: flex-start; }
+
+.peca {
+  --cor-peca: #3a4256;
+  display: grid;
+  place-items: center;
+  border: 2px dashed #3a4256;
+  border-radius: 12px;
+  background: transparent;
+  transition: background 0.4s, border-color 0.4s;
+  position: relative;
+}
+
+.peca em { font-style: normal; font-size: 22px; opacity: 0; transition: opacity 0.4s; }
+
+.peca.montada {
+  border-style: solid;
+  border-color: var(--cor-peca);
+  background: color-mix(in srgb, var(--cor-peca) 35%, #151a26);
+  box-shadow: 0 0 22px -6px var(--cor-peca);
+  animation: peca-encaixa 0.45s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.peca.montada em { opacity: 1; }
+
+@keyframes peca-encaixa {
+  from { transform: scale(0.6); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.peca-cabeca { width: 86px; height: 70px; border-radius: 18px; }
+.peca-tronco { width: 110px; height: 110px; }
+.peca-braco { width: 34px; height: 96px; border-radius: 16px; }
+.peca-braco em { font-size: 16px; }
+
+.olhos { position: absolute; top: 14px; display: flex; gap: 22px; opacity: 0; }
+.olhos::before,
+.olhos::after { content: ''; width: 10px; height: 10px; border-radius: 50%; background: #fff; box-shadow: 0 0 8px #fff; }
+.peca-cabeca.montada .olhos { opacity: 1; }
+.peca-cabeca em { margin-top: 18px; }
+
+.robo-base { width: 130px; height: 12px; border-radius: 999px; background: #262e40; }
+
+.af-ficha {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--texto-suave);
+}
+
+.af-ficha b { color: var(--texto); font-size: 16px; }
+
+.af-relatorio { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 8px; }
+
+.af-relatorio li {
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--superficie);
+  border-left: 3px solid var(--destaque);
+  font-size: 14px;
+  animation: dica-chega 0.35s ease;
+}
+
+/* ----- Diagrama ----- */
+.af-diagrama {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  font-family: var(--fonte-codigo);
+  font-size: 12px;
+}
+
+.af-diagrama .no {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 7px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--borda);
+  background: var(--superficie-2);
+  min-width: 110px;
+  text-align: center;
+  transition: border-color 0.3s, background 0.3s, opacity 0.3s;
+}
+
+.af-diagrama small { color: var(--texto-suave); font-size: 10.5px; }
+.af-diagrama .seta { color: #4c5670; font-size: 10.5px; }
+.af-diagrama .no-interface { border-style: dashed; border-color: var(--destaque); }
+.af-fabricas,
+.af-produtos { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.af-diagrama .no-fabrica { opacity: 0.45; }
+
+.af-diagrama .no-fabrica.ativo {
+  opacity: 1;
+  border-color: var(--cor-linha);
+  background: color-mix(in srgb, var(--cor-linha) 18%, var(--superficie-2));
+}
+
+.af-diagrama .no-produto span { color: #4c5670; }
+.af-diagrama .no-produto.criado { border-color: var(--cor-linha); animation: peca-encaixa 0.4s ease; }
+.af-diagrama .no-produto.criado span { color: var(--texto); font-weight: 600; }
+.af-diagrama .pulso { animation: pulso 0.8s ease; }
+
+@keyframes pulso {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--destaque) 70%, transparent); transform: scale(1); }
+  30% { transform: scale(1.06); }
+  100% { box-shadow: 0 0 0 14px transparent; transform: scale(1); }
+}
