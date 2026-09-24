@@ -2,7 +2,8 @@ import type { FabricaRobo } from './FabricaRobo';
 import type { Cabeca } from '../produtos/Cabeca';
 import type { Tronco } from '../produtos/Tronco';
 import type { Bracos } from '../produtos/Bracos';
-import { CabecaGelo, TroncoGelo, BracosGelo } from '../familias/PecasGelo';
+import type { Locomocao } from '../produtos/Locomocao';
+import { CabecaGelo, TroncoGelo, BracosGelo, LocomocaoGelo } from '../familias/PecasGelo';
 
 /**
  * FÁBRICA CONCRETA: só produz peças da linha Gelo.
@@ -22,5 +23,9 @@ export class FabricaGelo implements FabricaRobo {
 
   public criarBracos(): Bracos {
     return new BracosGelo();
+  }
+
+  public criarLocomocao(): Locomocao {
+    return new LocomocaoGelo();
   }
 }

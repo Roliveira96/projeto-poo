@@ -22,6 +22,7 @@ export class DiagramaFabrica {
       '    <div class="no no-produto" data-produto="Cabeca"><small>Cabeca</small><span>?</span></div>' +
       '    <div class="no no-produto" data-produto="Tronco"><small>Tronco</small><span>?</span></div>' +
       '    <div class="no no-produto" data-produto="Bracos"><small>Bracos</small><span>?</span></div>' +
+      '    <div class="no no-produto" data-produto="Locomocao"><small>Locomocao</small><span>?</span></div>' +
       '  </div>' +
       '</div>';
     this.raiz = container.querySelector('.af-diagrama') as HTMLElement;
@@ -44,7 +45,7 @@ export class DiagramaFabrica {
     }
   }
 
-  /** Mostra os "quantidade" primeiros produtos da família (na ordem Cabeca, Tronco, Bracos). */
+  /** Mostra os "quantidade" primeiros produtos da família (na ordem Cabeca, Tronco, Bracos, Locomocao). */
   public definirProdutos(linha: string, quantidade: number): void {
     const nos: HTMLElement[] = Array.from(this.raiz.querySelectorAll<HTMLElement>('.no-produto'));
     for (let indice = 0; indice < nos.length; indice++) {

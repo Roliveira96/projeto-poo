@@ -4,17 +4,18 @@ export const conteudoAbstractFactory: ConteudoDidatico = {
   objetivo:
     'Fornecer uma interface para criar <b>famílias de objetos relacionados</b> sem especificar suas classes concretas.',
   problema:
-    'Quando um sistema precisa de vários objetos que <b>devem combinar entre si</b> (cabeça, tronco e braços da mesma linha), ' +
+    'Quando um sistema precisa de vários objetos que <b>devem combinar entre si</b> (cabeça, tronco, braços e locomoção da mesma linha), ' +
     'espalhar <code>new CabecaFogo()</code>, <code>new TroncoGelo()</code> pelo código deixa fácil misturar famílias por engano ' +
     'e difícil trocar a família inteira. O Abstract Factory concentra a criação de cada família em uma fábrica.',
   analogia:
     'Uma montadora com linhas de produção. A linha Fogo só produz peças de Fogo, a linha Gelo só peças de Gelo. ' +
-    'Quem monta o robô só diz "me dê uma cabeça, um tronco e braços" para a linha escolhida, e tudo sai combinando.',
+    'Quem monta o robô só diz "me dê uma cabeça, um tronco, braços e uma locomoção" para a linha escolhida, e tudo sai combinando: ' +
+    'o robô de Fogo voa com propulsor de foguete, o de Gelo anda de esteira e o Cyber flutua por magnetismo.',
   participantes: [
     { papel: 'Abstract Factory', classes: 'FabricaRobo', descricao: 'Interface com um método criarX() para cada produto.' },
     { papel: 'Fábricas Concretas', classes: 'FabricaFogo, FabricaGelo, FabricaCyber', descricao: 'Cada uma cria os produtos de UMA família.' },
-    { papel: 'Produtos Abstratos', classes: 'Cabeca, Tronco, Bracos', descricao: 'Interfaces de cada tipo de peça.' },
-    { papel: 'Produtos Concretos', classes: 'CabecaFogo, TroncoGelo, BracosCyber…', descricao: 'Implementações de cada peça em cada família.' },
+    { papel: 'Produtos Abstratos', classes: 'Cabeca, Tronco, Bracos, Locomocao', descricao: 'Interfaces de cada tipo de peça.' },
+    { papel: 'Produtos Concretos', classes: 'CabecaFogo, TroncoGelo, LocomocaoCyber…', descricao: 'Implementações de cada peça em cada família (3 linhas × 4 peças = 12 classes).' },
     { papel: 'Cliente', classes: 'Robo', descricao: 'Recebe uma FabricaRobo e só usa as interfaces.' },
   ],
   perguntas: [
@@ -27,8 +28,10 @@ export const conteudoAbstractFactory: ConteudoDidatico = {
       resposta: 'Crio <code>CabecaAgua</code>, <code>TroncoAgua</code>, <code>BracosAgua</code> e <code>FabricaAgua implements FabricaRobo</code>. O <code>Robo</code> não muda nada: <b>princípio Aberto/Fechado</b>.',
     },
     {
-      pergunta: 'E se eu quiser adicionar um novo tipo de peça, como "Pernas"?',
-      resposta: 'Essa é a <b>desvantagem</b> do padrão: preciso adicionar <code>criarPernas()</code> na interface <code>FabricaRobo</code> e implementar em <b>todas</b> as fábricas concretas.',
+      pergunta: 'E se eu quiser adicionar um novo tipo de peça?',
+      resposta: 'Essa é a <b>desvantagem</b> do padrão, e aconteceu neste projeto: a <code>Locomocao</code> foi a última peça criada. Para ela existir foi preciso ' +
+        'criar a interface <code>Locomocao</code>, as 3 classes concretas (propulsor, esteira e flutuador), adicionar <code>criarLocomocao()</code> na interface ' +
+        '<code>FabricaRobo</code> e implementar em <b>todas</b> as fábricas. Já uma nova <b>linha</b> não mexe em nada existente.',
     },
     {
       pergunta: 'O que impede de misturar peças de linhas diferentes?',

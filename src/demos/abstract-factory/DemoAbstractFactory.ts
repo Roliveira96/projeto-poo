@@ -30,6 +30,7 @@ export class DemoAbstractFactory extends DemoPadrao {
     { tipo: 'Cabeca', campo: 'cabeca', metodo: 'criarCabeca' },
     { tipo: 'Tronco', campo: 'tronco', metodo: 'criarTronco' },
     { tipo: 'Bracos', campo: 'bracos', metodo: 'criarBracos' },
+    { tipo: 'Locomocao', campo: 'locomocao', metodo: 'criarLocomocao' },
   ];
   private diagrama!: DiagramaFabrica;
   private sistema!: HTMLElement;
@@ -39,7 +40,7 @@ export class DemoAbstractFactory extends DemoPadrao {
   protected getArquivosDeCodigo(): Map<string, string> {
     return this.organizarArquivos(codigoFonte, 'abstract-factory/', [
       'fabricas/FabricaRobo.ts', 'fabricas/FabricaFogo.ts', 'fabricas/FabricaGelo.ts', 'fabricas/FabricaCyber.ts',
-      'produtos/Cabeca.ts', 'produtos/Tronco.ts', 'produtos/Bracos.ts',
+      'produtos/Cabeca.ts', 'produtos/Tronco.ts', 'produtos/Bracos.ts', 'produtos/Locomocao.ts',
       'familias/PecasFogo.ts', 'familias/PecasGelo.ts', 'familias/PecasCyber.ts', 'Robo.ts',
     ]);
   }
@@ -75,7 +76,7 @@ export class DemoAbstractFactory extends DemoPadrao {
       '        <div class="peca peca-tronco" data-peca="tronco"><em></em></div>' +
       '        <div class="peca peca-braco" data-peca="bracos"><em></em></div>' +
       '      </div>' +
-      '      <div class="robo-base"></div>' +
+      '      <div class="peca peca-locomocao" data-peca="locomocao"><em></em></div>' +
       '    </div>' +
       '    <div class="af-ficha">Nenhum robô montado ainda.</div>' +
       '  </div>' +
@@ -183,8 +184,8 @@ export class DemoAbstractFactory extends DemoPadrao {
     this.reprodutor.encerrar();
     const linha: string = this.robo.getLinha();
     const relatorio: string[] = this.robo.executarMissao();
-    const metodos: string[] = ['public escanear', 'public atacar', 'public getBlindagem'];
-    const chamadas: string[] = ['cabeca.escanear()', 'bracos.atacar()', 'tronco.getBlindagem()'];
+    const metodos: string[] = ['public mover', 'public escanear', 'public atacar', 'public getBlindagem'];
+    const chamadas: string[] = ['locomocao.mover()', 'cabeca.escanear()', 'bracos.atacar()', 'tronco.getBlindagem()'];
 
     const passos: Passo[] = [{
       registro: 'robo.executarMissao()',
@@ -246,12 +247,16 @@ export class DemoAbstractFactory extends DemoPadrao {
     } else if (campo === 'tronco') {
       icone = robo.getTronco().getIcone();
       cor = robo.getTronco().getCor();
-    } else {
+    } else if (campo === 'bracos') {
       icone = robo.getBracos().getIcone();
       cor = robo.getBracos().getCor();
+    } else {
+      icone = robo.getLocomocao().getIcone();
+      cor = robo.getLocomocao().getCor();
     }
     for (const peca of this.elementosDaPeca(campo)) {
       peca.style.setProperty('--cor-peca', cor);
+      peca.dataset.linha = robo.getLinha().toLowerCase();
       (peca.querySelector('em') as HTMLElement).textContent = icone;
       peca.classList.add('montada');
     }
@@ -270,8 +275,10 @@ export class DemoAbstractFactory extends DemoPadrao {
   private atualizarFicha(robo: Robo): void {
     (this.sistema.querySelector('.af-ficha') as HTMLElement).innerHTML =
       '<b>Robô linha ' + robo.getLinha() + '</b>' +
-      '<span>' + robo.getCabeca().getNome() + ' · ' + robo.getTronco().getNome() + ' · ' + robo.getBracos().getNome() + '</span>' +
+      '<span>' + robo.getCabeca().getNome() + ' · ' + robo.getTronco().getNome() + ' · ' + robo.getBracos().getNome() +
+      ' · ' + robo.getLocomocao().getNome() + '</span>' +
       '<span>Blindagem ' + robo.getTronco().getBlindagem() + ' · Força ' + robo.getBracos().getForca() +
+      ' · Velocidade ' + robo.getLocomocao().getVelocidade() +
       ' · <b>Poder total ' + robo.getPoderTotal() + '</b></span>';
   }
 

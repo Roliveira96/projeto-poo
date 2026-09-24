@@ -45,7 +45,8 @@
 }
 
 /* ----- O robô: cada peça fica "fantasma" até ser criada pela fábrica ----- */
-.robo { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+/* padding-bottom reserva espaço para as chamas e o campo magnético abaixo da locomoção */
+.robo { display: flex; flex-direction: column; align-items: center; gap: 6px; padding-bottom: 30px; }
 .robo-meio { display: flex; gap: 6px; align-items: flex-start; }
 
 .peca {
@@ -87,7 +88,101 @@
 .peca-cabeca.montada .olhos { opacity: 1; }
 .peca-cabeca em { margin-top: 18px; }
 
-.robo-base { width: 130px; height: 12px; border-radius: 999px; background: #262e40; }
+/* ----- Locomoção: cada linha tem um jeito próprio de se mover ----- */
+.peca-locomocao { width: 150px; height: 36px; border-radius: 18px; margin-top: 4px; }
+.peca-locomocao em { font-size: 16px; }
+
+/* Gelo: esteira com a lagarta girando */
+.peca-locomocao.montada[data-linha="gelo"] {
+  border-radius: 999px;
+  background: repeating-linear-gradient(90deg,
+    color-mix(in srgb, var(--cor-peca) 60%, #151a26) 0 10px,
+    color-mix(in srgb, var(--cor-peca) 22%, #151a26) 10px 20px);
+  animation: peca-encaixa 0.45s cubic-bezier(0.3, 1.6, 0.5, 1), esteira-gira 0.6s linear infinite;
+}
+
+.peca-locomocao.montada[data-linha="gelo"]::before,
+.peca-locomocao.montada[data-linha="gelo"]::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  margin-top: -11px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.55);
+  background: #151a26;
+}
+
+.peca-locomocao.montada[data-linha="gelo"]::before { left: 5px; }
+.peca-locomocao.montada[data-linha="gelo"]::after { right: 5px; }
+
+@keyframes esteira-gira {
+  to { background-position: 20px 0; }
+}
+
+/* Fogo: bocal de propulsor com duas chamas */
+.peca-locomocao.montada[data-linha="fogo"] {
+  width: 112px;
+  border-radius: 10px 10px 24px 24px;
+}
+
+.peca-locomocao.montada[data-linha="fogo"]::before,
+.peca-locomocao.montada[data-linha="fogo"]::after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  width: 18px;
+  height: 30px;
+  border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
+  background: linear-gradient(180deg, #fff3b0, #ffb703 35%, #ef5b3a 70%, transparent);
+  filter: blur(0.5px);
+  transform-origin: top center;
+  animation: chama 0.14s ease-in-out infinite alternate;
+}
+
+.peca-locomocao.montada[data-linha="fogo"]::before { left: 20px; }
+.peca-locomocao.montada[data-linha="fogo"]::after { right: 20px; animation-delay: 0.07s; }
+
+@keyframes chama {
+  from { transform: scaleY(0.8) scaleX(0.9); opacity: 0.85; }
+  to { transform: scaleY(1.15) scaleX(1.05); opacity: 1; }
+}
+
+/* Cyber: disco magnético brilhando e o robô inteiro levitando */
+.peca-locomocao.montada[data-linha="cyber"] {
+  width: 132px;
+  height: 22px;
+  margin-top: 16px;
+  border-radius: 50%;
+  box-shadow: 0 0 24px var(--cor-peca), 0 14px 28px -8px var(--cor-peca);
+}
+
+.peca-locomocao.montada[data-linha="cyber"] em { font-size: 13px; }
+
+.peca-locomocao.montada[data-linha="cyber"]::after {
+  content: '';
+  position: absolute;
+  left: 12%;
+  bottom: -20px;
+  width: 76%;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, color-mix(in srgb, var(--cor-peca) 70%, transparent), transparent 70%);
+  animation: campo-magnetico 1.2s ease-in-out infinite;
+}
+
+@keyframes campo-magnetico {
+  0%, 100% { transform: scaleX(0.8); opacity: 0.5; }
+  50% { transform: scaleX(1.1); opacity: 1; }
+}
+
+.robo:has(.peca-locomocao.montada[data-linha="cyber"]) { animation: levitar 2.4s ease-in-out infinite; }
+
+@keyframes levitar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
 
 .af-ficha {
   display: flex;
@@ -117,7 +212,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   width: 100%;
   font-family: var(--fonte-codigo);
   font-size: 12px;
@@ -127,7 +222,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 7px 14px;
+  padding: 5px 12px;
   border-radius: 10px;
   border: 1.5px solid var(--borda);
   background: var(--superficie-2);

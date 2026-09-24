@@ -1,9 +1,10 @@
 import type { Cabeca } from '../produtos/Cabeca';
 import type { Tronco } from '../produtos/Tronco';
 import type { Bracos } from '../produtos/Bracos';
+import type { Locomocao } from '../produtos/Locomocao';
 
 /**
- * Família Gelo: três produtos concretos feitos para funcionar juntos.
+ * Família Gelo: quatro produtos concretos feitos para funcionar juntos.
  */
 export class CabecaGelo implements Cabeca {
   private readonly nome: string = 'Cabeça Gelo';
@@ -74,5 +75,32 @@ export class BracosGelo implements Bracos {
 
   public atacar(): string {
     return 'Raio congelante! O alvo fica lento.';
+  }
+}
+
+export class LocomocaoGelo implements Locomocao {
+  private readonly nome: string = 'Esteira de Gelo';
+  private readonly icone: string = '🛷';
+  private readonly cor: string = '#4cc9f0';
+  private readonly velocidade: number = 40;
+
+  public getNome(): string {
+    return this.nome;
+  }
+
+  public getIcone(): string {
+    return this.icone;
+  }
+
+  public getCor(): string {
+    return this.cor;
+  }
+
+  public getVelocidade(): number {
+    return this.velocidade;
+  }
+
+  public mover(): string {
+    return 'Esteira com cravos de gelo: avança firme em qualquer terreno.';
   }
 }

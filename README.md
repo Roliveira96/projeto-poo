@@ -28,8 +28,9 @@ src/
 ├── padroes/                  ← O CÓDIGO DOS PADRÕES (o que é avaliado)
 │   ├── abstract-factory/
 │   │   ├── fabricas/         FabricaRobo (interface) + FabricaFogo/Gelo/Cyber
-│   │   ├── produtos/         Cabeca, Tronco, Bracos (interfaces)
+│   │   ├── produtos/         Cabeca, Tronco, Bracos, Locomocao (interfaces)
 │   │   ├── familias/         PecasFogo, PecasGelo, PecasCyber (produtos concretos)
+│   │   │                     Fogo: propulsor de foguete · Gelo: esteira · Cyber: flutuador magnético
 │   │   └── Robo.ts           cliente
 │   ├── decorator/
 │   │   ├── Pocao.ts          componente (interface)
@@ -66,19 +67,22 @@ A pasta `src/padroes/` não depende de nada do site: dá para abrir cada padrão
 ### Abstract Factory
 ```mermaid
 classDiagram
-  class FabricaRobo { <<interface>> +criarCabeca() Cabeca +criarTronco() Tronco +criarBracos() Bracos }
+  class FabricaRobo { <<interface>> +criarCabeca() Cabeca +criarTronco() Tronco +criarBracos() Bracos +criarLocomocao() Locomocao }
   class Cabeca { <<interface>> }
   class Tronco { <<interface>> }
   class Bracos { <<interface>> }
+  class Locomocao { <<interface>> +mover() +getVelocidade() }
   FabricaRobo <|.. FabricaFogo
   FabricaRobo <|.. FabricaGelo
   FabricaRobo <|.. FabricaCyber
   Cabeca <|.. CabecaFogo
   Tronco <|.. TroncoFogo
   Bracos <|.. BracosFogo
+  Locomocao <|.. LocomocaoFogo
   FabricaFogo ..> CabecaFogo : cria
   FabricaFogo ..> TroncoFogo : cria
   FabricaFogo ..> BracosFogo : cria
+  FabricaFogo ..> LocomocaoFogo : cria
   Robo --> FabricaRobo : usa
 ```
 

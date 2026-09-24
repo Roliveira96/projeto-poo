@@ -1,9 +1,10 @@
 import type { Cabeca } from '../produtos/Cabeca';
 import type { Tronco } from '../produtos/Tronco';
 import type { Bracos } from '../produtos/Bracos';
+import type { Locomocao } from '../produtos/Locomocao';
 
 /**
- * Família Fogo: três produtos concretos feitos para funcionar juntos.
+ * Família Fogo: quatro produtos concretos feitos para funcionar juntos.
  */
 export class CabecaFogo implements Cabeca {
   private readonly nome: string = 'Cabeça Fogo';
@@ -74,5 +75,32 @@ export class BracosFogo implements Bracos {
 
   public atacar(): string {
     return 'Lança-chamas! Causa queimadura.';
+  }
+}
+
+export class LocomocaoFogo implements Locomocao {
+  private readonly nome: string = 'Propulsor de Foguete';
+  private readonly icone: string = '🚀';
+  private readonly cor: string = '#ef5b3a';
+  private readonly velocidade: number = 95;
+
+  public getNome(): string {
+    return this.nome;
+  }
+
+  public getIcone(): string {
+    return this.icone;
+  }
+
+  public getCor(): string {
+    return this.cor;
+  }
+
+  public getVelocidade(): number {
+    return this.velocidade;
+  }
+
+  public mover(): string {
+    return 'Propulsores ligados: decolou deixando um rastro de fogo!';
   }
 }

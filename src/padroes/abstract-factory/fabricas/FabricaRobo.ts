@@ -1,6 +1,7 @@
 import type { Cabeca } from '../produtos/Cabeca';
 import type { Tronco } from '../produtos/Tronco';
 import type { Bracos } from '../produtos/Bracos';
+import type { Locomocao } from '../produtos/Locomocao';
 
 /**
  * ABSTRACT FACTORY
@@ -12,4 +13,5 @@ export interface FabricaRobo {
   criarCabeca(): Cabeca;
   criarTronco(): Tronco;
   criarBracos(): Bracos;
+  criarLocomocao(): Locomocao;
 }
