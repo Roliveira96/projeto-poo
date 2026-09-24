@@ -1,6 +1,7 @@
 # Padrões de Projeto: Exame de Suficiência
 
-**Ricardo Martins de Oliveira** · [github.com/Roliveira96](https://github.com/Roliveira96) · [rmo.dev.br](https://rmo.dev.br)
+**Aluno:** Ricardo Martins de Oliveira · [github.com/Roliveira96](https://github.com/Roliveira96) · [rmo.dev.br](https://rmo.dev.br)
+**Professor:** Emerson André Fedechen · Disciplina de Padrões de Projeto
 
 Implementação de três padrões do GoF em **TypeScript orientado a objetos**, cada um com um tema próprio
 e uma demonstração interativa com tela dividida: **o sistema funcionando** de um lado e

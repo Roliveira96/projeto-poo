@@ -103,11 +103,18 @@
 }
 
 /* ===== Cartão do autor ===== */
+/* ===== Aluno + professor ===== */
+.pessoas {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 22px;
+  width: min(944px, 100%);
+}
+
 .autor {
   display: flex;
   align-items: center;
   gap: 24px;
-  width: min(944px, 100%);
   padding: 22px 26px;
   border-radius: 20px;
   background: var(--superficie);
@@ -154,6 +161,38 @@
 
 .autor-link svg { width: 15px; height: 15px; }
 .autor-link:hover { border-color: var(--cor-af); transform: translateY(-1px); }
+
+.professor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  padding: 22px 24px;
+  border-radius: 20px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+}
+
+.professor h2 { margin: 2px 0 4px; font-size: 19px; line-height: 1.25; }
+.professor-disciplina { margin: 0; color: var(--cor-dc); font-weight: 600; font-size: 14px; }
+.professor-avaliacao { margin: 4px 0 0; color: #b9c1cf; font-size: 13px; }
+
+.professor-monograma {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  color: #0b0e14;
+  background: linear-gradient(135deg, var(--cor-af), var(--cor-dc) 55%, var(--cor-ob));
+}
+
+@media (max-width: 960px) {
+  .pessoas { grid-template-columns: 1fr; }
+}
 
 @media (max-width: 640px) {
   .autor { flex-direction: column; text-align: center; }
