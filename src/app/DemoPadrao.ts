@@ -3,6 +3,7 @@ import type { InfoDemo } from './InfoDemo';
 import type { ConteudoDidatico } from './ConteudoDidatico';
 import { JanelaModal } from './JanelaModal';
 import { Visualizador } from '../visualizador/Visualizador';
+import { MaterialDeApoio } from './materiais/MaterialDeApoio';
 import type { ReprodutorDePassos } from '../visualizador/ReprodutorDePassos';
 
 /**
@@ -30,7 +31,7 @@ export abstract class DemoPadrao implements Tela {
       '    <div class="reprodutor" aria-label="Controles de reprodução"></div>' +
       '    <nav class="demo-acoes">' +
       '      <button class="botao-secundario" data-acao="conceito">📖 Conceito</button>' +
-      '      <button class="botao-secundario so-com-dicas" data-acao="roteiro">📋 Roteiro</button>' +
+      '      <button class="botao-secundario" data-acao="materiais">📚 Materiais</button>' +
       '    </nav>' +
       '  </header>' +
       '  <main class="demo-divisao">' +
@@ -49,7 +50,7 @@ export abstract class DemoPadrao implements Tela {
     this.montarSistema(raiz.querySelector('.sistema') as HTMLElement);
 
     (raiz.querySelector('[data-acao="conceito"]') as HTMLElement).addEventListener('click', () => this.abrirConceito());
-    (raiz.querySelector('[data-acao="roteiro"]') as HTMLElement).addEventListener('click', () => this.abrirRoteiro());
+    (raiz.querySelector('[data-acao="materiais"]') as HTMLElement).addEventListener('click', () => this.abrirMateriais());
   }
 
   public desmontar(): void {
@@ -106,11 +107,19 @@ export abstract class DemoPadrao implements Tela {
       '<div class="so-com-dicas"><h3>🙋 Perguntas que o professor pode fazer</h3>' + perguntas + '</div>');
   }
 
-  private abrirRoteiro(): void {
-    let passos: string = '';
-    for (const passo of this.getConteudo().roteiro) {
-      passos += '<li>' + passo + '</li>';
+  private abrirMateriais(): void {
+    const conteudo: ConteudoDidatico = this.getConteudo();
+    let origem: string = '';
+    for (const paragrafo of conteudo.origem) {
+      origem += '<p>' + paragrafo + '</p>';
     }
-    this.modal?.abrir('📋 Roteiro de apresentação: ' + this.info.padrao, '<ol class="roteiro">' + passos + '</ol>');
+    let aprofundamento: string = '';
+    for (const paragrafo of conteudo.aprofundamento) {
+      aprofundamento += '<p>' + paragrafo + '</p>';
+    }
+    const especifico: string =
+      '<h3>🧬 Origem do ' + this.info.padrao + '</h3>' + origem +
+      '<h3>🔬 Aprofundamento</h3>' + aprofundamento;
+    this.modal?.abrir('📚 Materiais: ' + this.info.padrao, new MaterialDeApoio().gerarHtml(especifico));
   }
 }

@@ -57,9 +57,9 @@ A pasta `src/padroes/` não depende de nada do site: dá para abrir cada padrão
   Voltar desfaz de verdade o estado visual (peças, camadas, cartões, log e linha destacada).
 
 - **📖 Conceito**: objetivo, problema, analogia, tabela de participantes e perguntas prováveis do professor com respostas.
-- **📋 Roteiro**: passo a passo do que clicar e do que falar em cada demo.
+- **📚 Materiais**: origem de cada padrão, texto de aprofundamento, a história da *Gang of Four* e referências (também na capa).
 - **💡 Dicas contextuais**: mudam a cada ação, lembrando o ponto-chave daquele momento.
-- **Botão "Dicas: ligadas/desligadas"** (canto inferior esquerdo): esconde dicas, roteiro e perguntas durante o compartilhamento de tela.
+- **Botão "Dicas: ligadas/desligadas"** (canto inferior esquerdo): esconde as dicas e as perguntas prováveis durante o compartilhamento de tela.
 
 ## Diagramas
 

@@ -15,15 +15,6 @@ export const conteudoDecorator: ConteudoDidatico = {
     { papel: 'Decorator', classes: 'IngredienteDecorator', descricao: 'Classe abstrata que guarda a referência "pocao" e repassa as chamadas.' },
     { papel: 'Decorators Concretos', classes: 'OlhoDeDragao, PoDeFada, RaizSombria, LagrimaDeUnicornio', descricao: 'Acrescentam comportamento antes/depois de repassar a chamada.' },
   ],
-  roteiro: [
-    'Explique em uma frase: "acrescentar comportamento a um objeto em tempo de execução, envolvendo-o em camadas".',
-    'Mostre <code>Pocao.ts</code> (a interface) e <code>IngredienteDecorator.ts</code>: ele <b>implementa Pocao</b> e <b>guarda uma Pocao</b> dentro. Esses são os dois segredos do padrão.',
-    'Adicione <b>Olho de Dragão</b>: no diagrama surge uma caixa envolvendo a base. No log aparece <code>pocao = new OlhoDeDragao(pocao)</code>.',
-    'Adicione <b>Pó de Fada</b> e clique em <b>Calcular poder</b>. Mostre a chamada <b>entrando</b> camada por camada até a base e <b>voltando</b> com os valores.',
-    'Clique em <b>Nova poção</b> e adicione na ordem inversa (Pó de Fada primeiro, depois Olho). O poder muda: <b>a ordem das camadas importa</b>.',
-    'Destaque que o cliente sempre trata o resultado como uma simples <code>Pocao</code>: ele não sabe quantas camadas existem.',
-    'Feche com a comparação com herança (explosão de subclasses) e cite Java IO: <code>new BufferedReader(new FileReader(...))</code>.',
-  ],
   perguntas: [
     {
       pergunta: 'Por que não usar herança?',
@@ -49,5 +40,25 @@ export const conteudoDecorator: ConteudoDidatico = {
       pergunta: 'Quais as desvantagens?',
       resposta: 'Muitos objetos pequenos, o que dificulta a depuração; a ordem das camadas pode causar erros sutis; e remover uma camada do meio não é trivial.',
     },
+  ],
+  origem: [
+    'Catalogado pela <i>Gang of Four</i> em 1994 como padrão <b>estrutural</b>, também conhecido como <b>Wrapper</b> (invólucro). O exemplo do livro é um editor de texto em que ' +
+    'uma <code>TextView</code> ganha borda e barra de rolagem envolvendo-a com um <code>BorderDecorator</code> e um <code>ScrollDecorator</code>, sem criar subclasses como ' +
+    '<code>TextViewComBordaERolagem</code>.',
+    'Os usos conhecidos citados vêm de toolkits gráficos da época, como o <b>InterViews</b> e o <b>ET++</b>, e o livro também ilustra a ideia com <b>fluxos de dados</b> ' +
+    '(streams que ganham compressão ou conversão de caracteres ao serem envolvidos). ' +
+    'Pouco depois, em 1996, a biblioteca <code>java.io</code> popularizou o padrão para milhões de programadores: <code>new BufferedReader(new InputStreamReader(new FileInputStream(arquivo)))</code> ' +
+    'é uma pilha de decorators.',
+  ],
+  aprofundamento: [
+    '<b>A frase da GoF.</b> O livro resume a diferença entre Decorator e Strategy assim: <i>o Decorator muda a "pele" de um objeto; o Strategy muda as suas "entranhas"</i>. ' +
+    'O decorator trabalha por fora, envolvendo; o strategy troca o algoritmo por dentro.',
+    '<b>Consequências.</b> Mais flexível que a herança estática e evita classes "inchadas" no topo da hierarquia, pois cada responsabilidade vira uma classe pequena ' +
+    '(<b>Responsabilidade Única</b>). Por outro lado, um decorator e o objeto decorado <b>não são o mesmo objeto</b> (comparar identidade falha), e o sistema passa a ter ' +
+    'muitos objetos pequenos e parecidos, o que dificulta a depuração para quem não conhece o padrão.',
+    '<b>Relação com outros padrões.</b> Pode ser visto como um <b>Composite</b> degenerado, com um único filho. Compartilha a estrutura de "envolver" com o <b>Proxy</b> e o ' +
+    '<b>Adapter</b>, mas com intenções diferentes: acrescentar comportamento, controlar acesso e converter interfaces, respectivamente.',
+    '<b>Onde aparece hoje.</b> Nos <b>middlewares HTTP</b>: em Go, uma função que recebe um <code>http.Handler</code> e devolve outro <code>http.Handler</code> adicionando log, ' +
+    'autenticação ou compressão é um decorator; o mesmo vale para os middlewares do Express. Também aparece em <i>wrappers</i> de cache, retry e métricas em volta de clientes de API.',
   ],
 };

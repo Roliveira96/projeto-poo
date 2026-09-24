@@ -17,15 +17,6 @@ export const conteudoAbstractFactory: ConteudoDidatico = {
     { papel: 'Produtos Concretos', classes: 'CabecaFogo, TroncoGelo, BracosCyber…', descricao: 'Implementações de cada peça em cada família.' },
     { papel: 'Cliente', classes: 'Robo', descricao: 'Recebe uma FabricaRobo e só usa as interfaces.' },
   ],
-  roteiro: [
-    'Abra <b>📖 Conceito</b> e explique em uma frase: "criar famílias de objetos que combinam, sem conhecer as classes concretas".',
-    'Mostre a aba <code>fabricas/FabricaRobo.ts</code>: é a interface com <b>um método de criação por produto</b>.',
-    'Escolha a linha <b>🔥 Fogo</b> e clique em <b>Montar robô</b>. Acompanhe o destaque: o <code>Robo</code> chama <code>fabrica.criarCabeca()</code> e quem responde é a <code>FabricaFogo</code>.',
-    'Aponte no diagrama: o Robo só conhece a <b>interface</b>. Ele nunca escreve <code>new CabecaFogo()</code>.',
-    'Troque para <b>❄️ Gelo</b> e monte de novo: <b>trocar a família inteira = trocar um único objeto</b>.',
-    'Clique em <b>Executar missão</b>: o mesmo código do Robo gera comportamentos diferentes (polimorfismo).',
-    'Feche com a vantagem (nova linha sem mexer no Robo: aberto/fechado) e a desvantagem (nova PEÇA obriga a mexer em todas as fábricas).',
-  ],
   perguntas: [
     {
       pergunta: 'Qual a diferença entre Abstract Factory e Factory Method?',
@@ -51,5 +42,23 @@ export const conteudoAbstractFactory: ConteudoDidatico = {
       pergunta: 'Por que interfaces e não classes abstratas?',
       resposta: 'Porque as fábricas e peças não compartilham implementação, só o contrato. Se houvesse código comum (ex.: um atributo compartilhado), uma classe abstrata também serviria.',
     },
+  ],
+  origem: [
+    'Catalogado pela <i>Gang of Four</i> em 1994 como padrão <b>criacional</b>, também conhecido pelo nome <b>Kit</b>. O exemplo que abre o capítulo no livro é um ' +
+    '<b>toolkit de interface gráfica</b> que precisa suportar vários padrões visuais (na época, Motif e Presentation Manager): janelas, barras de rolagem e botões ' +
+    'de um estilo não podem ser misturados com os de outro.',
+    'Entre os usos conhecidos citados pela GoF estão o <b>InterViews</b> (Stanford), que usava o sufixo "Kit" em classes como <code>WidgetKit</code> e <code>DialogKit</code>, ' +
+    'e o <b>ET++</b>, framework de Erich Gamma e André Weinand, que usava uma fábrica abstrata <code>WindowSystem</code> para rodar o mesmo programa em sistemas de janelas diferentes.',
+  ],
+  aprofundamento: [
+    '<b>Consequências apontadas pela GoF.</b> (1) Isola as classes concretas: o cliente manipula apenas interfaces. (2) Torna fácil trocar a família inteira, ' +
+    'porque a fábrica concreta aparece em um único lugar. (3) Garante a <b>consistência</b> entre produtos da mesma família. (4) Em contrapartida, ' +
+    '<b>adicionar um novo tipo de produto é difícil</b>, pois obriga a mudar a interface e todas as fábricas.',
+    '<b>Relação com outros padrões.</b> Os métodos de uma fábrica concreta costumam ser <b>Factory Methods</b>. Como normalmente basta uma instância de cada fábrica ' +
+    'concreta, elas são frequentemente <b>Singletons</b>. O <b>Prototype</b> é uma alternativa: a fábrica clona protótipos em vez de instanciar subclasses.',
+    '<b>Princípios SOLID envolvidos.</b> É uma aplicação direta da <b>Inversão de Dependência</b> (o <code>Robo</code> depende da abstração <code>FabricaRobo</code>) ' +
+    'e do <b>Aberto/Fechado</b> (uma nova linha entra sem alterar o cliente).',
+    '<b>Onde aparece hoje.</b> Em Java, <code>javax.xml.parsers.DocumentBuilderFactory</code> e o <code>java.awt.Toolkit</code>; kits de componentes com temas claro/escuro; ' +
+    'drivers de banco que entregam conexão, comando e resultado do mesmo fornecedor; e contêineres de <b>injeção de dependência</b>, que escolhem a fábrica concreta na configuração.',
   ],
 };

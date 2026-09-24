@@ -127,7 +127,7 @@ body.sem-dicas .dica { display: none !important; }
 .interruptor input:checked + span { background: var(--destaque); }
 .interruptor input:checked + span::after { transform: translateX(16px); }
 
-/* ===== Janela modal ===== */
+/* ===== Janela modal (Conceito e Materiais) ===== */
 .modal-fundo {
   position: fixed;
   inset: 0;
@@ -143,7 +143,7 @@ body.sem-dicas .dica { display: none !important; }
 .modal-fundo.aberto { display: flex; }
 
 .modal {
-  width: min(820px, 100%);
+  width: min(920px, 100%);
   max-height: 88vh;
   display: flex;
   flex-direction: column;
@@ -153,7 +153,7 @@ body.sem-dicas .dica { display: none !important; }
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
 }
 
-.modal header {
+.modal > header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -190,9 +190,6 @@ details {
 details summary { cursor: pointer; font-weight: 600; }
 details p { margin-top: 8px !important; }
 
-.roteiro { padding-left: 22px; margin: 12px 0 0; }
-.roteiro li { margin-bottom: 12px; padding-left: 6px; color: #d3d9e4; }
-.roteiro li::marker { color: var(--destaque); font-weight: 700; }
 
 /* ===== Barras de rolagem discretas ===== */
 * { scrollbar-width: thin; scrollbar-color: #2e3649 transparent; }
@@ -202,3 +199,20 @@ details p { margin-top: 8px !important; }
 
 /* Código sem ligaduras: "!==" aparece exatamente como foi digitado */
 code, .codigo-corpo, .log-lista { font-variant-ligatures: none; }
+
+/* ===== Materiais: história e referências ===== */
+.modal-conteudo blockquote {
+  margin: 12px 0;
+  padding: 12px 16px;
+  border-left: 3px solid var(--destaque);
+  background: var(--superficie-2);
+  border-radius: 0 10px 10px 0;
+  font-style: italic;
+  color: #dfe4ec;
+}
+
+.modal-conteudo p + p { margin-top: 10px; }
+
+.referencias { margin: 8px 0 0; padding-left: 20px; font-size: 13.5px; color: #c9d0dd; }
+.referencias li { margin-bottom: 6px; }
+

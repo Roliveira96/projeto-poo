@@ -10,12 +10,15 @@ export interface PerguntaProvavel {
   resposta: string;
 }
 
-/** Material de apoio exibido nas janelas "Conceito" e "Roteiro". */
+/** Material exibido nas janelas "Conceito" e "Materiais". */
 export interface ConteudoDidatico {
   objetivo: string;
   problema: string;
   analogia: string;
   participantes: Participante[];
-  roteiro: string[];
   perguntas: PerguntaProvavel[];
+  /** De onde o padrão veio (HTML, um item por parágrafo). */
+  origem: string[];
+  /** Texto complementar: consequências, variações e usos modernos (HTML, um item por parágrafo). */
+  aprofundamento: string[];
 }

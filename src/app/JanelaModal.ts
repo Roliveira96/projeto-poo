@@ -1,4 +1,4 @@
-/** Janela sobreposta usada para "Conceito" e "Roteiro". */
+/** Janela sobreposta usada para "Conceito" e "Materiais". */
 export class JanelaModal {
   private readonly fundo: HTMLElement;
   private readonly titulo: HTMLElement;

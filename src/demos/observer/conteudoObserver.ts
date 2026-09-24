@@ -16,15 +16,6 @@ export const conteudoObserver: ConteudoDidatico = {
     { papel: 'Observers Concretos', classes: 'BarraDeStatus, AlertaDeCuidado, DiarioDoPet, CelularDoDono', descricao: 'Cada um reage do seu jeito à mesma notificação.' },
     { papel: 'Dado da notificação', classes: 'EstadoPet', descricao: 'Retrato imutável do pet enviado junto com o aviso (modelo push).' },
   ],
-  roteiro: [
-    'Explique em uma frase: "um objeto muda e avisa automaticamente todos os interessados, sem conhecê-los".',
-    'Mostre <code>Observador.ts</code> e <code>Sujeito.ts</code>: os dois contratos. Depois, em <code>Pet.ts</code>, a <b>lista</b> de observadores e o <b>for</b> do <code>notificar()</code>.',
-    'Clique em <b>🍖 Alimentar</b>: acompanhe o método mudar o estado, chamar <code>notificar()</code>, e o aviso chegar a cada observador no diagrama.',
-    'Mostre que cada observador reage <b>diferente</b> ao mesmo aviso: a barra redesenha, o diário anota, o celular só manda push quando o <b>humor muda</b>.',
-    '<b>Desinscreva</b> o Celular do Dono (interruptor no cartão) e interaja de novo: o fio fica tracejado e ele para de receber. Inscrição é dinâmica, em tempo de execução.',
-    'Ligue o <b>⏱ Relógio</b>: o tempo passa sozinho e as notificações continuam, sem ninguém "perguntar" ao pet.',
-    'Feche com o desacoplamento: para criar um novo observador (ex.: "Veterinário"), basta implementar <code>Observador</code> e inscrever. <b>Nada muda no Pet</b>.',
-  ],
   perguntas: [
     {
       pergunta: 'Qual a vantagem principal?',
@@ -50,5 +41,22 @@ export const conteudoObserver: ConteudoDidatico = {
       pergunta: 'Onde aparece no mundo real?',
       resposta: '<code>addEventListener</code> do DOM, arquitetura MVC (o modelo avisa as views), RxJS/Observables, notificações de apps e webhooks.',
     },
+  ],
+  origem: [
+    'Catalogado pela <i>Gang of Four</i> em 1994 como padrão <b>comportamental</b>, também conhecido como <b>Dependents</b> (dependentes) e <b>Publish-Subscribe</b>. ' +
+    'Sua raiz é o <b>MVC</b>, criado por Trygve Reenskaug no Xerox PARC em 1978–79: no Smalltalk-80, todo objeto podia registrar dependentes ' +
+    '(<code>addDependent:</code>) e avisá-los com <code>changed</code>, que chamava <code>update:</code> em cada um.',
+    'Entre os usos conhecidos listados pela GoF estão o próprio MVC do Smalltalk, o toolkit <b>InterViews</b>, o <b>Andrew Toolkit</b> (Carnegie Mellon) e o <b>Unidraw</b> de John Vlissides.',
+  ],
+  aprofundamento: [
+    '<b>Push × pull.</b> No modelo <b>push</b> o sujeito envia os dados junto com o aviso (como o <code>EstadoPet</code> aqui); no <b>pull</b> ele só avisa "mudei" e cada observador ' +
+    'busca o que precisa. O push é mais simples para o observador; o pull deixa o sujeito mais independente de quem observa.',
+    '<b>Cuidados.</b> Atualizações em cascata (um observador que altera outro sujeito) podem gerar ciclos difíceis de rastrear. Observadores que não se desinscrevem mantêm referências vivas ' +
+    'e causam vazamento de memória (<i>lapsed listener</i>). Para dependências complexas, a GoF sugere um <b>ChangeManager</b> intermediário, que é um <b>Mediator</b>.',
+    '<b>Da GoF à programação reativa.</b> O Java trouxe <code>java.util.Observable</code> desde a versão 1.0, mas ele foi <b>depreciado no Java 9</b>, justamente por ser uma classe ' +
+    '(obriga herança) e não uma interface. A ideia evoluiu para a <b>programação reativa</b>: o ReactiveX (Rx), criado na Microsoft por volta de 2009, combina Observer com Iterator e ' +
+    'hoje está no RxJS, no Angular e em várias plataformas.',
+    '<b>Onde aparece hoje.</b> O <code>addEventListener</code> do DOM, o MVC e o MVVM de frameworks de interface, notificações de aplicativos, webhooks e, em escala de sistemas, ' +
+    'a arquitetura orientada a eventos (com um broker no meio, o que já é Publish/Subscribe).',
   ],
 };
