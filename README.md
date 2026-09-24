@@ -12,7 +12,7 @@ Você usa o sistema de um lado da tela e vê, do outro, o diagrama se mexendo, o
 ![Orientado a Objetos](https://img.shields.io/badge/100%25-Orientado%20a%20Objetos-ff8a3d)
 ![Sem frameworks](https://img.shields.io/badge/sem-frameworks-3ddc97)
 
-**Aluno:** Ricardo Martins de Oliveira · [github.com/Roliveira96](https://github.com/Roliveira96) · [rmo.dev.br](https://rmo.dev.br)
+**Aluno:** Ricardo Martins de Oliveira · [GitHub](https://github.com/Roliveira96) · [LinkedIn](https://www.linkedin.com/in/ricardodeoliveira96/) · [rmo.dev.br](https://rmo.dev.br)
 **Professor:** Emerson André Fedechen · Disciplina de Padrões de Projeto · Exame de suficiência
 
 ![Capa do projeto](docs/screenshots/capa.png)
